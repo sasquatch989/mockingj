@@ -1,0 +1,115 @@
+classDiagram
+    class FastAPIServer {
+        +app: FastAPI
+        -config: Config
+        -health_monitor: HealthMonitor
+        -metrics_collector: MetricsCollector
+        +start()
+        +stop()
+    }
+
+    class Config {
+        +load_config()
+        +get_setting()
+        +validate()
+        -load_yaml()
+        -load_env_vars()
+    }
+
+    class HealthMonitor {
+        -metrics_collector: MetricsCollector
+        +get_health_status()
+        +get_readiness()
+        +get_liveness()
+        -check_dependencies()
+        -get_memory_usage()
+    }
+
+    class MetricsCollector {
+        -metrics: Dict
+        +record_request(endpoint: str, latency: float)
+        +get_metrics()
+        +reset_metrics()
+        -calculate_statistics()
+    }
+
+    class SwaggerParser {
+        +parse_specification(file_path: str)
+        +get_endpoints() List~Endpoint~
+        +get_schemas() Dict~str, Schema~
+        -resolve_references()
+        -validate_spec()
+    }
+
+    class MockServer {
+        -endpoints: List~Endpoint~
+        -data_generator: MockDataGenerator
+        -response_builder: ResponseBuilder
+        -metrics_collector: MetricsCollector
+        +register_routes()
+        -handle_request(path: str, method: str)
+    }
+
+    class MockDataGenerator {
+        -generators: Dict~str, DataGeneratorStrategy~
+        -cache_manager: CacheManager
+        +generate_data(schema: Schema) Any
+        +register_generator(type: str, generator: DataGeneratorStrategy)
+    }
+
+    class CacheManager {
+        -cache: Dict
+        +get_cached_value(key: str)
+        +set_cached_value(key: str, value: Any)
+        +clear_cache()
+    }
+
+    class ResponseBuilder {
+        -schemas: Dict~str, Schema~
+        +build_response(schema: Schema) Response
+        -validate_response(response: Any, schema: Schema)
+    }
+
+    class Logger {
+        +setup_logging()
+        +log_request()
+        +log_error()
+        +log_metrics()
+    }
+
+    class DataGeneratorStrategy {
+        <<interface>>
+        +generate(schema: Schema) Any
+    }
+
+    class Endpoint {
+        +path: str
+        +method: str
+        +response_schema: Schema
+        +request_schema: Schema
+        +status_codes: List~int~
+    }
+
+    class Schema {
+        +type: str
+        +properties: Dict
+        +required: List~str~
+        +format: str
+        +enum: List
+    }
+
+    FastAPIServer o-- MockServer
+    FastAPIServer o-- HealthMonitor
+    FastAPIServer o-- MetricsCollector
+    FastAPIServer o-- Config
+    MockServer o-- SwaggerParser
+    MockServer o-- MockDataGenerator
+    MockServer o-- ResponseBuilder
+    MockServer o-- MetricsCollector
+    MockDataGenerator o-- DataGeneratorStrategy
+    MockDataGenerator o-- CacheManager
+    HealthMonitor o-- MetricsCollector
+    DataGeneratorStrategy <|.. StringGenerator
+    DataGeneratorStrategy <|.. NumberGenerator
+    DataGeneratorStrategy <|.. ObjectGenerator
+    DataGeneratorStrategy <|.. ArrayGenerator

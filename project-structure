@@ -1,0 +1,116 @@
+# Project Structure
+# Path: project-structure
+
+mockingj/
+├── .github/                      # GitHub specific configurations
+│   └── workflows/                # GitHub Actions CI/CD workflows
+│       ├── ci.yml               # Main CI pipeline
+│       └── release.yml          # Release pipeline
+│
+├── docs/                        # Documentation
+│   ├── api/                     # API documentation
+│   ├── development/             # Development guides
+│   │   ├── adr.md              # Architecture Decision Record
+│   │   ├── UML.mermaid         # UML diagrams
+│   └── configuration/           # Configuration documentation
+│
+├── src/                         # Source code
+│   └── mockingj/               # Main package directory
+│       ├── __init__.py         # Package initialization
+│       ├── api/                # API endpoints
+│       │   ├── __init__.py
+│       │   ├── health.py       # Health check endpoints
+│       │   └── meta.py         # Meta information endpoints
+│       │
+│       ├── core/               # Core functionality
+│       │   ├── __init__.py
+│       │   ├── config.py       # Configuration management
+│       │   ├── logging.py      # Logging setup
+│       │   ├── exceptions.py   # Custom exceptions
+│       │   └── server.py       # Main server class
+│       │
+│       ├── generators/         # Mock data generators
+│       │   ├── __init__.py
+│       │   ├── base.py        # Base generator class
+│       │   ├── string.py      # String data generator
+│       │   ├── number.py      # Number data generator
+│       │   ├── object.py      # Object data generator
+│       │   ├── array.py       # Array data generator
+│       │   ├── mock_generator.py # Mock data generator coordinator
+│       │   └── exceptions.py   # Generator-specific exceptions
+│       │
+│       ├── models/            # Pydantic models
+│       │   ├── __init__.py
+│       │   ├── config.py      # Configuration models
+│       │   ├── health.py      # Health check models
+│       │   ├── responses.py   # API response models
+│       │   └── schema.py      # Schema models for parsing
+│       │
+│       ├── parser/            # Swagger specification parser
+│       │   ├── __init__.py
+│       │   ├── swagger.py     # Swagger parser implementation
+│       │   └── exceptions.py  # Parser-specific exceptions
+│       │
+│       ├── monitoring/        # Monitoring and metrics
+│       │   ├── __init__.py
+│       │   ├── health.py      # Health monitoring
+│       │   └── metrics.py     # Metrics collection
+│       │
+│       └── utils/             # Utility functions
+│           ├── __init__.py
+│           ├── cache.py       # Caching utilities
+│           └── validators.py  # Custom validators
+│
+├── tests/                      # Test suite
+│   ├── __init__.py
+│   ├── conftest.py            # pytest configuration and fixtures
+│   │
+│   ├── test_core/            # Tests for core functionality
+│   │   ├── __init__.py
+│   │   └── test_config.py    # Configuration system tests
+│   │
+│   ├── test_generators/      # Tests for generator components
+│   │   ├── __init__.py
+│   │   ├── test_mock_generator.py    # Mock generator tests
+│   │   ├── test_string_generator.py  # String generator tests
+│   │   ├── test_number_generator.py  # Number generator tests
+│   │   ├── test_array_generator.py   # Array generator tests
+│   │   └── test_object_generator.py  # Object generator tests
+│   │
+│   ├── test_models/          # Tests for model components
+│   │   ├── __init__.py
+│   │   ├── test_config_models.py     # Configuration model tests
+│   │   ├── test_schema_models.py     # Base schema model tests
+│   │   ├── test_array_schema.py      # Array schema tests
+│   │   └── test_object_schema.py     # Object schema tests
+│   │
+│   ├── test_parser/         # Tests for parser components
+│   │   ├── __init__.py
+│   │   ├── test_basic_parser.py      # Basic parser functionality
+│   │   ├── test_parameter_parser.py  # Parameter parsing tests
+│   │   ├── test_path_parser.py       # Path parsing tests
+│   │   ├── test_response_parser.py   # Response parsing tests
+│   │   └── test_swagger_parser.py    # Main parser tests
+│   │
+│   └── test_monitoring/     # Tests for monitoring components
+│       ├── __init__.py
+│       ├── test_health.py   # Health monitoring tests
+│       └── test_metrics.py  # Metrics collection tests
+│
+├── docker/                    # Docker configuration
+│   ├── Dockerfile           # Main Dockerfile
+│   └── docker-compose.yml   # Docker Compose configuration
+│
+├── config/                   # Configuration files
+│   ├── config.yaml          # Default configuration
+│   └── logging.yaml         # Logging configuration
+│
+├── .gitignore               # Git ignore file
+├── .pre-commit-config.yaml  # pre-commit hooks configuration
+├── pyproject.toml          # Project metadata and dependencies
+├── Makefile               # Make targets for common operations
+├── README.md              # Project documentation
+└── requirements/          # Python requirements files
+    ├── base.txt          # Base requirements
+    ├── dev.txt           # Development requirements
+    └── test.txt          # Testing requirements

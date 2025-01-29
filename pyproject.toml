@@ -1,0 +1,64 @@
+[project]
+name = "mockingj"
+version = "0.1.0"
+description = "A mock server for testing OpenAPI/Swagger specifications"
+authors = [
+    {name = "Me", email = "me@me.me"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.109.0",
+    "pydantic>=2.5.0",
+    "pyyaml>=6.0.1",
+    "uvicorn>=0.27.0",
+    "python-jose[cryptography]>=3.3.0",
+    "python-multipart>=0.0.6",
+]
+
+[tool.poetry.group.test]
+optional = true
+
+[tool.poetry.group.test.dependencies]
+pytest = ">=7.4.0"
+pytest-cov = ">=4.1.0"
+pytest-asyncio = ">=0.23.0"
+pytest-mock = ">=3.12.0"
+httpx = ">=0.26.0"
+black = ">=24.1.0"
+isort = ">=5.13.0"
+mypy = ">=1.8.0"
+types-pyyaml = ">=6.0.12"
+types-python-jose = ">=3.3.4"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+minversion = "7.0"
+addopts = "-ra -q --cov=mockingj --cov-report=term-missing"
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+markers = [
+    "slow: marks tests as slow",
+    "integration: marks tests as integration tests",
+    "unit: marks tests as unit tests",
+]
+
+[tool.black]
+line-length = 88
+target-version = ["py312"]
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+check_untyped_defs = true
